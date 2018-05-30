@@ -1,0 +1,16 @@
+version: '3'
+services:
+  database:
+    image: mongo:latest
+    volumes:
+      - db:/data/db
+  api:
+    image: myservice:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://database:27017/apidb
+    depends_on:
+      - database
+volumes:
+  db:
